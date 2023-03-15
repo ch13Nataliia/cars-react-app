@@ -17,19 +17,23 @@ import ListCars from './pages/ListCars';
 import Update from './pages/Update';
 import NotFound from './pages/NotFound';
 
+import { CarsProvider } from './components/context/car.context';
+
 function App() {
   return (
     <Router>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<ListCars />} />
-            <Route path="/add" element={<Add />} />
-            <Route path="/update/:id" element={<Update />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
+        <CarsProvider>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<ListCars />} />
+              <Route path="/add" element={<Add />} />
+              <Route path="/update/:id" element={<Update />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </CarsProvider>
       </ThemeProvider>
     </Router>
   );
