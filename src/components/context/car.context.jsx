@@ -70,7 +70,7 @@ const addCar = useCallback(
       });
     }
   },
-  [cars, setCars, showMessage],
+  [cars, setCars],
 );
 
 const updateCar = useCallback(
@@ -135,7 +135,7 @@ const updateCar = useCallback(
       });
     }
   },
-  [cars, setCars, showMessage],
+  [cars, setCars],
 );
 
 const deleteCar = useCallback(
@@ -172,7 +172,7 @@ const deleteCar = useCallback(
       });
     }
   },
-  [cars, setCars, showMessage],
+  [cars, setCars],
 );
 
 return (
