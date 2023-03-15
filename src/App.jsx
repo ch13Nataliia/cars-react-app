@@ -26,7 +26,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<ListCars />} />
             <Route path="/add" element={<Add />} />
-            <Route path="/update" element={<Update />} />
+            <Route path="/update/:id" element={<Update />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
