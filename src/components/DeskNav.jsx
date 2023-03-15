@@ -17,7 +17,7 @@ function DeskNav({
 }) {
 
   const theme = useTheme();
-console.log(theme)
+// console.log(theme)
 
 const lightTextColor = theme.palette.common.white;
 
