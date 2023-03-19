@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
@@ -18,22 +18,24 @@ import Update from './pages/Update';
 import NotFound from './pages/NotFound';
 
 import { CarsProvider } from './components/context/car.context';
-
+import { UIProvider } from './components/context/UI.context';
 function App() {
   return (
     <Router>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <CarsProvider>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<ListCars />} />
-              <Route path="/add" element={<Add />} />
-              <Route path="/update/:id" element={<Update />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </CarsProvider>
+        <UIProvider>
+          <CarsProvider>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<ListCars />} />
+                <Route path="/add" element={<Add />} />
+                <Route path="/update/:id" element={<Update />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </CarsProvider>
+        </UIProvider>
       </ThemeProvider>
     </Router>
   );

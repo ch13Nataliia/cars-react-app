@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
-import green from '@mui/material/colors/orange';
-import grey from '@mui/material/colors/grey';
+import green from '@mui/material/colors/green'
+import grey from '@mui/material/colors/grey'
 
 let theme = createTheme({
   palette: {

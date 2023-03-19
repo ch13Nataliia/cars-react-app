@@ -8,12 +8,12 @@ function Update() {
   const { id } = useParams();
   const {cars, updateCar} = useContext(CarsContext);
 
-  const car = cars.find(({_id})=> id === _id)
+  const car = cars.find(({_id})=> id === _id);
 
   return (
     <>
     <Typography variant="h4" component="h1" sx ={{ marginBottom: 2}}>
-        Update Cars
+        Update Car
       </Typography>
       <CarForm cat = {car} submitHandler={updateCar}/>
     </>

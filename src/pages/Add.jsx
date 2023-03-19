@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Typography from '@mui/material/Typography';
-import CarForm from '../components/form/CarForm';
+import CarForm from '../components/form/CarForm'
 import { CarsContext } from '../components/context/car.context';
 import { useNavigate } from 'react-router-dom';
 

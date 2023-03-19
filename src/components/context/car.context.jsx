@@ -1,5 +1,7 @@
 import React, { createContext, useState, useCallback, useContext } from 'react';
-import { CARS_ENDPOINT, STORAGE_KEY } from '../../settings';
+import {CARS_ENDPOINT, STORAGE_KEY} from '../../settings';
+import { UIContext } from './UI.context';
+
 
 export const CarsContext = createContext({
   fetchCars: () => [],
@@ -13,6 +15,7 @@ export const CarsContext = createContext({
 });
 
 export const CarsProvider = ({ children }) => {
+  const { showMessage} = useContext(UIContext)
   const [cars, setCars] = useState(() => {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   });
@@ -27,6 +30,7 @@ const fetchCars = useCallback(async () => {
   }
   setLoading(true);
   try {
+    console.log(`fetching from ${CARS_ENDPOINT}`);
     const response = await fetch(CARS_ENDPOINT);
     if (!response.ok) {
       throw response;
@@ -35,12 +39,13 @@ const fetchCars = useCallback(async () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     setCars(data);
   } catch (err) {
-    setError(err.message || err.statusText);
+    console.log("Error", err);
+    setError(`Failed to load cars`);
   } finally {
     setLoaded(true);
     setLoading(false);
   }
-}, [error, loaded, loading]);
+}, [error, loaded, loading, setError, setCars, setLoading, setLoaded]);
 
 const addCar = useCallback(
   async (formData) => {
@@ -50,7 +55,6 @@ const addCar = useCallback(
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(formData),
       });
@@ -70,22 +74,19 @@ const addCar = useCallback(
       });
     }
   },
-  [cars, setCars],
+  [cars, setCars, showMessage],
 );
 
 const updateCar = useCallback(
   async (id, formData) => {
     console.log('updating', id, formData);
     let updatedCar = null;
-    // Get index
     const index = cars.findIndex((car) => car._id === id);
     console.log(index);
     if (index === -1) throw new Error(`Car with index ${id} not found`);
-    // Get actual car
     const oldCar = cars[index];
     console.log('oldCar', oldCar);
 
-    // Send the differences, not the whole update
     const updates = {};
 
     for (const key of Object.keys(oldCar)) {
@@ -96,11 +97,10 @@ const updateCar = useCallback(
     }
 
     try {
-      const response = await fetch(`${CARS_ENDPOINT}${id}`, {
+      const response = await fetch(`${CARS_ENDPOINT}/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(updates),
       });
@@ -109,7 +109,7 @@ const updateCar = useCallback(
         throw response;
       }
 
-      // Merge with formData
+  
       updatedCar = {
         ...oldCar,
         ...formData, // order here is important for the override!!
@@ -135,27 +135,26 @@ const updateCar = useCallback(
       });
     }
   },
-  [cars, setCars],
+  [cars, setCars, showMessage],
 );
 
 const deleteCar = useCallback(
   async (id) => {
     let deletedCar = null;
     try {
-      const response = await fetch(`${CARS_ENDPOINT}${id}`, {
+      const response = await fetch(`${CARS_ENDPOINT}/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
       if (response.status !== 204) {
         throw response;
       }
-      // Get index
+ 
       const index = cars.findIndex((car) => car._id === id);
       deletedCar = cars[index];
-      // recreate the cars array without that car
+
       const updatedCars = [...cars.slice(0, index), ...cars.slice(index + 1)];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedCars));
       setCars(updatedCars);
@@ -172,7 +171,7 @@ const deleteCar = useCallback(
       });
     }
   },
-  [cars, setCars],
+  [cars, setCars,showMessage],
 );
 
 return (

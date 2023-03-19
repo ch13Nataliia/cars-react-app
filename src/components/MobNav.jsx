@@ -22,7 +22,7 @@ function MobNav({
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
         sx={{
           display: { xs: 'block', sm: 'none' },
@@ -36,12 +36,20 @@ function MobNav({
           <Divider />
           <List>
             <ListItem>
-              <ListItemButton sx={{ textAlign: 'left' }} component={NavLink} to="/">
+              <ListItemButton
+                sx={{ textAlign: 'left' }}
+                component={NavLink}
+                to="/"
+              >
                 <ListItemText primary={'List Cars'} />
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton sx={{ textAlign: 'left' }} component={NavLink} to="/add">
+              <ListItemButton
+                sx={{ textAlign: 'left' }}
+                component={NavLink}
+                to="/add"
+              >
                 <ListItemText primary={'Add Car'} />
               </ListItemButton>
             </ListItem>

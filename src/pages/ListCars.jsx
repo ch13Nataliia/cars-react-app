@@ -1,28 +1,22 @@
 import * as React from 'react';
 import { useContext, useEffect } from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Link } from 'react-router-dom';
-import EditIcon from '@mui/icons-material/Edit';
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { CarsContext } from '../components/context/car.context';
 import CarsList from "../components/CarsList"
 
 
+import CircularProgress from "@mui/material/CircularProgress";
 
 function ListCars() {
-  const { cars, fetchCars, deleteCar } = useContext(CarsContext);
+  const { cars, fetchCars, deleteCar, loading, error } = useContext(CarsContext);
+
+
 
   useEffect(() => {
     fetchCars();
   }, [fetchCars]);
-
 
 
   
@@ -30,13 +24,24 @@ function ListCars() {
 deleteCar(id);
   }
   
+  let callStatusComponent = null;
+  if (loading) {
+    callStatusComponent = <CircularProgress/>
+  } else if (error) {
+    callStatusComponent = <p>{error}: Loading from localStorage</p>;
+  } else if (cars.lenght === 0) {
+    callStatusComponent= <p>No cars to display</p>
+  }
+
   return (
-    <Box>
+    <>
       <Typography variant="h3" component="h2">
         Cars List
       </Typography>
+      {callStatusComponent}
+      
       <CarsList cats={cars}  deleteHandler={deleteHandler} />
-    </Box>
+    </>
   );
 }
 

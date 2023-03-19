@@ -19,6 +19,7 @@ const defaults = {
   bhp: '',
   avatar_url: '',
 };
+
 function CarForm({ car, submitHandler }) {
   const {
     handleSubmit,
@@ -52,7 +53,7 @@ function CarForm({ car, submitHandler }) {
   };
 
   return (
-    <>
+    
       <form onSubmit={handleSubmit(submitFn)}>
         <div style={formRowStyle}>
           <Controller
@@ -79,7 +80,7 @@ function CarForm({ car, submitHandler }) {
             defaultValue={''}
             render={({ field }) => (
               <TextField
-                type="name"
+                type="number"
                 {...field}
                 label="bhp"
                 fullWidth
@@ -98,7 +99,7 @@ function CarForm({ car, submitHandler }) {
             defaultValue={''}
             render={({ field }) => (
               <TextField
-                type="name"
+                type="text"
                 {...field}
                 label="avatar_url"
                 fullWidth
@@ -117,7 +118,7 @@ function CarForm({ car, submitHandler }) {
             sx={{ mt: 2 }}
             disabled={!isDirty}
           >
-            reset
+            Reset
           </Button>
         </div>
 
@@ -129,11 +130,11 @@ function CarForm({ car, submitHandler }) {
             sx={{ mt: 2 }}
             disabled={!isDirty || isSubmitting || (isDirty && !isValid)}
           >
-            submit
+            Submit
           </Button>
         </div>
       </form>
-    </>
+  
   );
 }
 
