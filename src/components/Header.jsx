@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
+import {Box} from '@mui/material';
 import MobNav from './MobNav';
 import DeskNav from './DeskNav';
 

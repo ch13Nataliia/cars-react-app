@@ -15,7 +15,7 @@ function Update() {
     <Typography variant="h4" component="h1" sx ={{ marginBottom: 2}}>
         Update Car
       </Typography>
-      <CarForm cat = {car} submitHandler={updateCar}/>
+      <CarForm car = {car} submitHandler={updateCar}/>
     </>
   )
   

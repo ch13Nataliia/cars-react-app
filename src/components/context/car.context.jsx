@@ -15,7 +15,7 @@ export const CarsContext = createContext({
 });
 
 export const CarsProvider = ({ children }) => {
-  const { showMessage} = useContext(UIContext)
+  const { showMessage} = useContext(UIContext);
   const [cars, setCars] = useState(() => {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   });
@@ -112,7 +112,7 @@ const updateCar = useCallback(
   
       updatedCar = {
         ...oldCar,
-        ...formData, // order here is important for the override!!
+        ...formData, 
       };
       console.log('updatedCar', updatedCar);
       // recreate the cars array

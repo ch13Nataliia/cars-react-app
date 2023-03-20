@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useContext, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { CarsContext } from '../components/context/car.context';
 import CarsList from "../components/CarsList"
@@ -25,8 +24,9 @@ deleteCar(id);
   }
   
   let callStatusComponent = null;
+
   if (loading) {
-    callStatusComponent = <CircularProgress/>
+    callStatusComponent = <CircularProgress />
   } else if (error) {
     callStatusComponent = <p>{error}: Loading from localStorage</p>;
   } else if (cars.lenght === 0) {
@@ -40,7 +40,7 @@ deleteCar(id);
       </Typography>
       {callStatusComponent}
       
-      <CarsList cats={cars}  deleteHandler={deleteHandler} />
+      <CarsList cars={cars}  deleteHandler={deleteHandler} />
     </>
   );
 }
